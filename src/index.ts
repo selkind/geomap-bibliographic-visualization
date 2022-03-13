@@ -1,12 +1,16 @@
 import * as d3 from 'd3';
+
+import cont from './data/antarctic_coastline_low_res.geojson';
 import './style.css';
 
-const component = () => {
-    const element = document.createElement('div');
-    element.innerHTML = 'Hello World';
-    element.classList.add('hello');
-    return element;
-};
-document.body.appendChild(component());
 
-d3.select('p').style('color', 'blue');
+const main = async() => {
+    const width = 960, height = 1160;
+    const svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+    console.log(cont);
+
+}
+
+main()

@@ -2,6 +2,7 @@ const path = require("path");
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     context: process.cwd(),
@@ -12,6 +13,9 @@ module.exports = {
         static: './dist',
     },
     plugins: [
+        new CopyPlugin({
+                patterns: [{from: "./src/data/*", to: "data"}]
+            }),
         new ForkTsCheckerWebpackPlugin(),
         new ForkTsCheckerNotifierWebpackPlugin({
             title: 'Typescript', excludeWarnings: false
@@ -33,6 +37,12 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.geojson$/,
+                include: path.resolve(__dirname, 'src'),
+                use: ['json-loader']
+
+            },
             {
                 test: /\.tsx?$/,
                 include: path.resolve(__dirname, 'src'),
